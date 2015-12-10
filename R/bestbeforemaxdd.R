@@ -1,11 +1,22 @@
-bestbeforemaxdd <- function(x, threshold, dir = 1){
+#' Function to calculate the difference before meet the first max drawdown
+#'
+#' @useDynLib bestbeforemaxdd
+#' @param x data series, should be a vector
+#' @param threshold the threshold to determine max drawdown
+#' @param long is long or short?
+#' @keywords maxdd
+#' @export
+#' @examples
+#' bestbeforemaxdd()
+
+bestbeforemaxdd <- function(x, threshold, long = TRUE){
     if (any(is.na(x))) stop(sQuote("x"), " must not be NULL!");
     len <- length(x)
     cret <- .C ("bestbeforemaxdd",
                 as.double(x),
-                as.int(len),
+                as.integer(len),
                 as.double(threshold),
-                as.int(dir),
+                as.integer(long),
                 ret = double(len)
                 )
     ret <- cret$ret
