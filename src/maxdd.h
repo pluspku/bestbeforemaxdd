@@ -4,7 +4,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif            
-void best_before_maxdd(double *x, int r, double threshold, int dir, double *results);
+void best_before_maxdd(double *x, int r, double threshold, int dir, int *results);
 
 #ifdef __cplusplus
 }
