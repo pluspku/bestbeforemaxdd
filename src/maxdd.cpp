@@ -37,7 +37,7 @@ double operator-(const maxddnode& lhs, const maxddnode& rhs) { return lhs._x - r
 typedef rbtree<maxddnode> tree_t;
 
 
-void best_before_maxdd(double *x, int r, double threshold, int dir, double *results){
+void best_before_maxdd(double *x, int r, double threshold, int dir, int *results){
     tree_t * tree = new tree_t();
     int link[r];
     memset(link, 0, sizeof(int) * r);
@@ -50,19 +50,19 @@ void best_before_maxdd(double *x, int r, double threshold, int dir, double *resu
 
         maxddnode target(-1, x[i] * dir + threshold);
         for (tree_t::const_iterator it = tree->lower_bound(target); it!=tree->cend(); it++){
-            results[it->_t] = (*it) - (*node);
+            results[it->_t] = i; 
         }
         tree->erase_and_dispose(tree->lower_bound(target), tree->cend(), delete_disposer());
         tree->insert_equal(*node);
     }
     maxddnode node(r-1, x[r-1] * dir);
     for (tree_t::const_iterator it = tree->cbegin(); it!=tree->cend(); it++){
-        results[it->_t] = (*it) - node;
+        results[it->_t] = r-1;
     }
     tree->clear_and_dispose(delete_disposer());
     for (int i = r-1; i>=0; i--){
         if (link[i] > 0){
-            results[i] = results[link[i]] + x[i] - x[link[i]];
+            results[i] = results[link[i]];
         }
     }
     delete tree;

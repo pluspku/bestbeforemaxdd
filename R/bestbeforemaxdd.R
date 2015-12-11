@@ -17,8 +17,8 @@ bestbeforemaxdd <- function(x, threshold, long = TRUE){
                 as.integer(len),
                 as.double(threshold),
                 as.integer(long),
-                ret = double(len)
+                ret = integer(len)
                 )
-    ret <- cret$ret
+    ret <- cret$ret + 1
     ret
 }
